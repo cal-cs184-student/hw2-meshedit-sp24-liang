@@ -39,31 +39,36 @@
 
 <body>
 
-<h1 align="middle">CS 184: Computer Graphics and Imaging, Spring 2018</h1>
+<h1 align="middle">CS 184: Computer Graphics and Imaging, Spring 2024</h1>
 <h1 align="middle">Project 2: Mesh Edit</h1>
-<h2 align="middle">YOUR NAME</h2>
+<h2 align="middle">Liang Yang</h2>
 
 <br><br>
 
 <div>
 
-<h2 align="middle">Overview</h2>
+<h1 align="middle">Overview</h1>
 <p>
-    YOUR RESPONSE GOES HERE
+  <span style="color: blue;">In this assignment, we explore topics on geometric modeling covered in lecture. In Section 1, we build Bezier curves and surfaces using de Casteljau algorithm.
+  In Section 2, we manipulate triangle meshes represented by half-edge data structure, and implement loop subdivision.</span>
 </p>
 <br>
 
 
-<h2 align="middle">Section I: Bezier Curves and Surfaces</h2>
+<h1 align="middle">Section I: Bezier Curves and Surfaces</h2>
 
-<h3 align="middle">Part 1: Bezier Curves with 1D de Casteljau Subdivision</h3>
+<h2 align="middle">Part 1: Bezier Curves with 1D de Casteljau Subdivision</h2>
 
 
 <b>
   Briefly explain de Casteljau's algorithm and how you implemented it in order to evaluate Bezier curves.
 </b>
 <p>
-    YOUR RESPONSE GOES HERE
+  <span style="color: blue;">de Casteljau's algorithm is used to efficiently evaluate Bezier Curve from control points, it utilized the thought of 
+  continuously interpolate the points with parameter t until one point was left, then this point is claimed to be on the Bezier Curve. Each parameter t corresponds
+  to one such points, and all such points form the Bezier Curve.
+  The implementation is done with this thought. In each iteration, we are given a list of points, then every pi' in the output is derived by doing the interpolation for pi and pi+1, 
+  with the given parameter t. </span>
 </p>
 <br>
 
@@ -71,12 +76,10 @@
 <b>
   Take a look at the provided .bzc files and create your own Bezier curve with 6 control points of your choosing. Use this Bezier curve for your screenshots below.
 </b>
-<p>
-    YOUR RESPONSE GOES HERE
-</p>
+
 <!-- Example of including a single figure -->
 <div align="middle">
-  <img src="images/your_file.png" align="middle" width="50%">
+  <img src="fig1.png" align="middle" width="50%">
 </div>
 <br>
 
@@ -88,30 +91,23 @@
   <table style="width:100%">
     <tr align="center">
       <td>
-        <img src="images/your_file.png" align="middle" width="400px"/>
+        <img src="fig1.png" align="middle" width="400px"/>
         <figcaption>Level 0</figcaption>
       </td>
       <td>
-        <img src="images/your_file.png" align="middle" width="400px"/>
+        <img src="fig2.png" align="middle" width="400px"/>
         <figcaption>Level 1</figcaption>
       </td>
     </tr>
     <br>
     <tr align="center">
       <td>
-        <img src="images/your_file.png" align="middle" width="400px"/>
+        <img src="fig3.png" align="middle" width="400px"/>
         <figcaption>Level 2</figcaption>
       </td>
       <td>
-        <img src="images/your_file.png" align="middle" width="400px"/>
+        <img src="fig4.png" align="middle" width="400px"/>
         <figcaption>Level 3</figcaption>
-      </td>
-    </tr>
-    <br>
-    <tr align="center">
-      <td>
-        <img src="images/your_file.png" align="middle" width="400px"/>
-        <figcaption>Level 4</figcaption>
       </td>
     </tr>
   </table>
@@ -122,18 +118,26 @@
 <b>
   Show a screenshot of a slightly different Bezier curve by moving the original control points around and modifying the parameter \(t\) via mouse scrolling.
 </b>
-<p>
-    YOUR RESPONSE GOES HERE
-</p>  
+<!-- Example of including a single figure -->
+
+<div align="middle">
+  <img src="fig1.png" align="middle" width="50%">
+</div> 
 <br>
 
 
-<h3 align="middle">Part 2: Bezier Surfaces with Separable 1D de Casteljau</h3>
+<h2 align="middle">Part 2: Bezier Surfaces with Separable 1D de Casteljau</h2>
 <b>
   Briefly explain how de Casteljau algorithm extends to Bezier surfaces and how you implemented it in order to evaluate Bezier surfaces.
 </b>
 <p>
-    YOUR RESPONSE GOES HERE
+  <span style="color: blue;">We need to be assure that the movement of points form a curve, and the movement of curve sweeps out a surface.
+  Therefore, 2-D Bezier Curves are formed by points moving with different parameters t, then for a surface, which is a 3-dimensional case, Bezier surface
+  are spanned by 2-D parameters (u,v). 
+  The implementation is done following this instruction. Each 4 control points forms the Bezier curve parametrized by u, we can get 1 point on this Bezier
+  Curve after several interpolation repetition. Since we have 4*4 control points, we can get 4 such points, all of which are parametrized by u.
+  Then in the last step, we use these 4 points as control points, with parametrization of v, we are able to derive a point that exactly lies on the 
+  Bezier Surface.</span>
 </p>
 <br>
 
@@ -141,9 +145,9 @@
 <b>
   Show a screenshot of bez/teapot.bez (not .dae) evaluated by your implementation.
 </b>
-<p>
-    YOUR RESPONSE GOES HERE
-</p>
+<div align="middle">
+  <img src="fig6.png" align="middle" width="50%">
+</div> 
 <br>
 
 
@@ -155,7 +159,10 @@
   Briefly explain how you implemented the area-weighted vertex normals.
 </b>
 <p>
-    YOUR RESPONSE GOES HERE
+  <span style="color: blue;">We are required to implement area-weighted normal vectors at vertices. As instructed, we need to find the faces that
+  share the given vertex, and we weight its normal by its area. Finally, we normalized the sum of all area-weighted data. The implementation is quite
+  analogous to the Face::normal() implementation. We find all the faces with the given vertex, the way to do it is quite similar to the printNeighborPositions()
+  in the primer. Then we iterate each face and calculates its normal vector, we then weighted-sum them up, and normalize the sum.  </span>
 </p>
 <br>
 
@@ -163,18 +170,37 @@
 <b>
   Show screenshots of dae/teapot.dae (not .bez) comparing teapot shading with and without vertex normals. Use <kbd>Q</kbd> to toggle default flat shading and Phong shading.
 </b>
-<p>
-    YOUR RESPONSE GOES HERE
-</p>
+<div align="middle">
+  <table style="width:100%">
+    <tr align="center">
+      <td>
+        <img src="fig8.png" align="middle" width="400px"/>
+        <figcaption>without vertex normals</figcaption>
+      </td>
+      <td>
+        <img src="fig7.png" align="middle" width="400px"/>
+        <figcaption>with vertex normal</figcaption>
+      </td>
+    </tr>
+    <br>
+  </table>
+</div>
+<br>
 <br>
 
 
-<h3 align="middle">Part 4: Edge Flip</h3>
+<h2 align="middle">Part 4: Edge Flip</h2>
 <b>
   Briefly explain how you implemented the edge flip operation and describe any interesting implementation / debugging tricks you have used.
 </b>
 <p>
-    YOUR RESPONSE GOES HERE
+  <span style="color: blue;">The concept is quite trivial. Given a pair of triangles (a,b,c) and (c, b, d), a flip operation on their shared edge (b,c) 
+  converts the original pair of triangle into new pair (a, d, c) and (a, b, d). The function we implemented takes an EdgeIter that needs to be flipped as 
+  input, and outputs itself after flipped.
+  The implementation is brute force. Following the instruction, we first draw the diagram before and after the flip, which contains every element of the half-edge data structure, such as 
+  halfedges, edges, vertices... We then write down and define every element involves, and their relationship, before the flip. Then, after flipping,
+  we relocates pointers of nearly all every element, based on the diagram after the flip as we drawn. The keypoint is to draw the diagram correctly, and 
+  don't ignore anyone element (halfedge, vertex, edge...). Since there are too many assignments and pointer reassignment, the most important thing is to be careful when working on stuff like this</span>
 </p>
 <br>
 
@@ -182,9 +208,31 @@
 <b>
   Show screenshots of the teapot before and after some edge flips.
 </b>
-<p>
-    YOUR RESPONSE GOES HERE
-</p>
+<div align="middle">
+  <table style="width:100%">
+    <tr align="center">
+      <td>
+        <img src="fig9.png" align="middle" width="400px"/>
+        <figcaption>Before edge flips</figcaption>
+      </td>
+      <td>
+        <img src="fig10.png" align="middle" width="400px"/>
+        <figcaption>after</figcaption>
+      </td>
+    </tr>
+    <br>
+    <tr align="center">
+      <td>
+        <img src="fig11.png" align="middle" width="400px"/>
+        <figcaption>after</figcaption>
+      </td>
+      <td>
+        <img src="fig12.png" align="middle" width="400px"/>
+        <figcaption>after</figcaption>
+      </td>
+    </tr>
+  </table>
+</div>
 <br>
 
 
@@ -192,17 +240,26 @@
     Write about your eventful debugging journey, if you have experienced one.
 </b>
 <p>
-    YOUR RESPONSE GOES HERE
+  <span style="color: blue;">There are too many assignments and pointer reassignment, I once made a small typo on the
+    allocation of face after flipping, which leads to an error that the graph shows some dark holes after flipping, while the flipping seems
+    to work correctly. Later on I found it was because I made a typo when dealing with the Face data structure</span>
 </p>
 <br>
 
 
-<h3 align="middle">Part 5: Edge Split</h3>
+<h2 align="middle">Part 5: Edge Split</h2>
 <b>
   Briefly explain how you implemented the edge split operation and describe any interesting implementation / debugging tricks you have used.
 </b>
 <p>
-    YOUR RESPONSE GOES HERE
+  <span style="color: blue;">The concept is quite trivial. Given a pair of triangles (a,b,c) and (c, b, d), a split operation on their shared edge (b,c) 
+    inserts a new vertex m at its midpoint and connects the new vertex to each opposing vertex a and d, yielding 4 triangles. The function we implemented takes an EdgeIter that needs to be split as 
+    input, and outputs a vertexIter to the newly inserted vertex.
+    The implementation is brute force. Following the instruction, we first draw the diagram before and after the flip, which contains every element of the half-edge data structure, such as 
+    halfedges, edges, vertices... We then write down and define every element involves, and their relationship, before the split. Then, after splitting,
+    we relocates pointers of nearly all every element, based on the diagram after the flip as we drawn. The splitting operation results in more halfedges, more vertices, more edges and more faces, therefore,
+    we need to construct more of them using the methods like newVertex. The keypoint is to draw the diagram correctly, and 
+    don't ignore anyone element (halfedge, vertex, edge...). Since there are too many assignments and pointer reassignment, the most important thing is to be careful when working on stuff like this</span></span>
 </p>
 <br>
 
@@ -210,18 +267,62 @@
 <b>
     Show screenshots of a mesh before and after some edge splits. 
 </b>
-<p>
-    YOUR RESPONSE GOES HERE
-</p>
+<div align="middle">
+  <table style="width:100%">
+    <tr align="center">
+      <td>
+        <img src="fig13.png" align="middle" width="400px"/>
+        <figcaption>Before edge split</figcaption>
+      </td>
+      <td>
+        <img src="fig14.png" align="middle" width="400px"/>
+        <figcaption>after</figcaption>
+      </td>
+    </tr>
+    <br>
+    <tr align="center">
+      <td>
+        <img src="fig15.png" align="middle" width="400px"/>
+        <figcaption>after</figcaption>
+      </td>
+      <td>
+        <img src="fig16.png" align="middle" width="400px"/>
+        <figcaption>after</figcaption>
+      </td>
+    </tr>
+  </table>
+</div>
 <br>
 
 
 <b>
     Show screenshots of a mesh before and after a combination of both edge splits and edge flips.
 </b>
-<p>
-    YOUR RESPONSE GOES HERE
-</p>
+<div align="middle">
+  <table style="width:100%">
+    <tr align="center">
+      <td>
+        <img src="fig15.png" align="middle" width="400px"/>
+        <figcaption> edge split</figcaption>
+      </td>
+      <td>
+        <img src="fig16.png" align="middle" width="400px"/>
+        <figcaption>edge flip</figcaption>
+      </td>
+    </tr>
+    <br>
+    <tr align="center">
+      <td>
+        <img src="fig17.png" align="middle" width="400px"/>
+        <figcaption>edge split</figcaption>
+      </td>
+      <td>
+        <img src="fig18.png" align="middle" width="400px"/>
+        <figcaption>edge flip</figcaption>
+      </td>
+    </tr>
+  </table>
+</div>
 <br>
 
 
@@ -229,27 +330,55 @@
     Write about your eventful debugging journey, if you have experienced one.
 </b>
 <p>
-    YOUR RESPONSE GOES HERE
+  <span style="color: blue;">Even though the process is tedious and brute force, where we are required to rolocate and manage lots of pointers,
+  I think everything goes quite smooth for this problem. I remember when I browse on Ed, one student said we need to initialize the elements after
+  we create them using the newVector function, otherwise the program will seg fault. This suggestions enable me to avoid harsh debugging.
+  Below is my design graph for before and after the flip. </span>
 </p>
 <br>
 
-
-<b>
-    If you have implemented support for boundary edges, show screenshots of your implementation properly handling split operations on boundary edges.
-</b>
-<p>
-    YOUR RESPONSE GOES HERE
-</p>
+<div align="middle">
+  <table style="width:100%">
+    <tr align="center">
+      <td>
+        <img src="fig19.jpg" align="middle" width="400px"/>
+        <figcaption>before splitting</figcaption>
+      </td>
+      <td>
+        <img src="fig20.jpg" align="middle" width="400px"/>
+        <figcaption>after flipping</figcaption>
+      </td>
+    </tr>
+    <br>
+  </table>
+</div>
 <br>
 
 
-<h3 align="middle">Part 6: Loop Subdivision for Mesh Upsampling</h3>
+<h2 align="middle">Part 6: Loop Subdivision for Mesh Upsampling</h2>
 <b>
   Briefly explain how you implemented the loop subdivision and describe any interesting implementation / debugging tricks you have used.
 </b>
 <p>
-    YOUR RESPONSE GOES HERE
+  <span style="color: blue;">My implementation generally follows what is described in this algorithm, but I did not adopt the recommended approach
+  illustrated in this assignment. The algorithm generally consists of 2 steps, one is to subdivide the triangle. The subdivision process can be done by first doing the
+  split operation, which splits every edge, then we do the flip on those edges whose vertices are one old and one new. After that, we do the weighted update for
+  both old vertices and new vertices.
+  In implementation, I first iterate over all edges and do the split on each edge. In order to track which edges are old edge and which are new, I iterate over the 
+  edges again on the original mesh, and store the information of old vertices in a vector. Similarly, I store the information of newly formed edges from split in another
+  vector. I think this makes flip easier, since flip only performed on those vertices with one old vertex and one new vertex, we can do such checking on the vectors I constructed.
+  After that, I do the reweight on vertices. I applied separate algorighthms based on the instructions on old vertex and new vertex (this can also be checked and looked up from the vector). In reweighting, we
+  modify the "position" attribute of the vertices.  
+  However, unfortunately, I finish implementing my logic, but my approach (different from that recommended by the homework) does not seem to work. The program stuck and stall whenever I press "L" to start... I do a debugging
+  and find that the program was in an infinite loop at the very beginning when I call the split function. I currently cannot figure out where is the problem, but I don't think my logic
+  is wrong...  Can anyone look at my codes and gives me some suggestion? Thank you!
+ </span>
 </p>
+<br>
+
+<div align="middle">
+  <img src="fig21.jpeg" align="middle" width="50%">
+</div> 
 <br>
 
 
@@ -257,56 +386,11 @@
   Take some notes, as well as some screenshots, of your observations on how meshes behave after loop subdivision. What happens to sharp corners and edges? Can you reduce this effect by pre-splitting some edges?
 </b>
 <p>
-    YOUR RESPONSE GOES HERE
+  <span style="color: blue;">The resolution shoule be higher due to upsampling</span>
 </p>
 <br>
 
-
-<b>
-  Load dae/cube.dae. Perform several iterations of loop subdivision on the cube. Notice that the cube becomes slightly asymmetric after repeated subdivisions. Can you pre-process the cube with edge flips and splits so that the cube subdivides symmetrically? Document these effects and explain why they occur. Also explain how your pre-processing helps alleviate the effects.
-</b>
-<p>
-    YOUR RESPONSE GOES HERE
-</p>
-<br>
-
-
-<b>
-    If you have implemented any extra credit extensions, explain what you did and document how they work with screenshots.
-</b>
-<p>
-    YOUR RESPONSE GOES HERE
-</p>
-<br>
-
-
-<h3 align="middle">Part 7 (Optional, Possible Extra Credit)</h3>
-<b>
-    Save your best polygon mesh as partsevenmodel.dae in your docs folder and show us a screenshot of the mesh in your write-up.
-</b>
-<p>
-    YOUR RESPONSE GOES HERE
-</p>
-<br>
-
-
-<b>
-    Include a series of screenshots showing your original mesh and your mesh after one and two rounds of subdivision. If you have used custom shaders, include screenshots of your mesh with those shaders applied as well.
-</b>
-<p>
-    YOUR RESPONSE GOES HERE
-</p>
-<br>
-
-
-<b>
-    Describe what you have done to enhance your mesh beyond the simple humanoid mesh described in the tutorial.
-</b>
-<p>
-    YOUR RESPONSE GOES HERE
-</p>
-<br>
-
+<h2 align="middle">End of Report</h2>
 
 </body>
 </html>
